@@ -1,0 +1,34 @@
+#signup-form {
+	/*margin-left: 120px;*/
+	/*margin-top: 50px;*/
+	display: grid;
+	grid-template-columns: 30% 70%;
+	max-width: 600px;
+}
+
+#signup-form > * {
+	margin-bottom: 8px;
+}
+
+
+#signup-form > input:not([type='submit']) {
+	padding: 5px;
+	border-radius: 4px;
+	border: 2px solid lightgrey;
+}
+
+#signup-form > input:not([type='submit']):focus {
+	border: 2px solid grey;
+}
+
+#signup-form > input[type='submit'] {
+	height: 40px;
+	font-weight: bold;
+	background-color: #0033cc;
+	color: white;
+	cursor: pointer;
+}
+
+#signup-form > input[type='submit']:hover {
+	background-color: #4d79ff;
+}

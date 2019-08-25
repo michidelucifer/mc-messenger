@@ -1,0 +1,77 @@
+#profile-wrapper {
+	display: flex;
+}
+
+#profile-left {
+	/*display: inline-block;*/
+	margin-right: 10px;
+}
+
+#profile-right {
+	/*display: inline-block;*/
+	/*border: 1px solid black;*/
+	margin-top: 0;
+}
+
+#avatar-form {
+	display: flex;
+	flex-direction: column;
+}
+
+#avatar {
+	/*border: 1px solid #ccc;*/
+	width: 200px;
+	height: 200px;
+}
+
+#avatar-form > input {
+	display: none;
+}
+
+#custom-avatar-upload {
+	border: 1px solid #ccc;
+	cursor: pointer;
+	margin-top: 6px;
+	text-align: center;
+	width: 200px;
+	padding: 4px;
+	box-sizing: border-box;
+	font-weight: bold;
+	background-color: #cc3300;
+	color: white;
+}
+
+#custom-avatar-upload:hover {
+	background-color: #ff4000;
+}
+
+.edit-form {
+	display: grid;
+	grid-template-columns: 150px 200px 80px;
+	/*margin-left: 20px;*/
+}
+
+.edit-form > * {
+	margin-bottom: 8px;
+}
+
+.edit-form > input:not([type='submit']) {
+	padding: 5px;
+	border-radius: 4px;
+	border: 2px solid lightgrey;
+}
+
+.edit-form > input[type='submit'] {
+	border: 1px solid #ccc;
+	height: 29px;
+	/*width: 80%;*/
+	margin-left: 10px;
+	font-weight: bold;
+	background-color: #cc3300;
+	color: white;
+	cursor: pointer;
+}
+
+.edit-form > input[type='submit']:hover {
+	background-color: #ff4000;
+}

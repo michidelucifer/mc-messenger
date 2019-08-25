@@ -1,0 +1,62 @@
+.App-header {
+	background-color: #282c34;
+	display: flex;
+	font-size: 25px;
+}
+
+.App-header ul {
+	list-style-type: none;
+	margin: 4px 80px;
+	/*border-collapse: collapse;*/
+}
+
+.App-header li {
+	display: inline-block;
+	border-left: 1px solid #808080;
+	width: 150px;
+	text-align: center;
+}
+
+.App-header li:last-child {
+	border-right: 1px solid #808080;
+}
+
+.App-header li:hover {
+	background-color: #434a56;
+}
+
+.App-header a {
+	color: white;
+	text-decoration: none;
+	/*border: 1px solid yellow;*/
+	/*width: 8vw;*/
+	/*text-align: center;*/
+}
+
+h1 {
+	/*margin-left: 120px;*/
+	margin-bottom: 50px;
+}
+
+main {
+	min-height: 100vh;
+	margin-left: 120px;
+}
+
+footer {
+	background-color: #282c34;
+	color: white;
+	text-align: center;
+	/*height: 100%;*/
+}
+
+footer > p {
+	padding: 10px;
+	/*line-height: 35px;*/
+	margin: 0;
+}
+
+.errorMessage {
+	/*margin-left: 120px;*/
+	color: red;
+}
