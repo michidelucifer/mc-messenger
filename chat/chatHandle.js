@@ -18,11 +18,9 @@ function chatHandle (io) {
 				username: socket.handshake.query.username
 			}]
 		}
-		console.log(io.onlineUsers);
-		let conversation = [];
 		socket.on('send message', data => {
 			const { from, to, message } = data;
-			conversation.push(data);
+			saveMessage(data);
 			const toUser = io.onlineUsers.find(user => user.username === to);
 				if (toUser) { // toUser is online
 					const toSocketId = toUser.socketId;
@@ -31,42 +29,42 @@ function chatHandle (io) {
 			})
 		socket.on('disconnect', () => {
 			console.log('user disconnected')
-				saveMessage(conversation);
-				conversation = [];
-				io.onlineUsers = io.onlineUsers.filter(user => user.socketId !== socket.id)
-				console.log(io.onlineUsers)
+			io.onlineUsers = io.onlineUsers.filter(user => user.socketId !== socket.id)
 			})
 	})
 }
 
-const saveMessage = async (newConversations) => {
+const saveMessage = async (data) => {
+	// console.log('saving conversation...')
+	const { from, to, message } = data;
 	try {
-		if (newConversations.length === 0) return;
-		let extractedConversation = newConversations.map(data => ({ username: data.from, message: data.message }));
-		const { from, to } = newConversations[0];
 		const fromUser = await User.findOne({ username: from }, 'messages');
-		let conversation = await fromUser.messages.find(ele => ele.friend === to);
+		let conversation = fromUser.messages.find(ele => ele.friend === to);
 		if (!conversation) {
 			const newMessage = new Message ({
-				conversation: extractedConversation
+				conversation: [{ username: from, message }]
 			});
-			await newMessage.save();
+			// await newMessage.save();
+			newMessage.save();
 			fromUser.messages.push({
 				friend: to,
 				conversationId: newMessage._id
 			})
-			await fromUser.save();
+			// await fromUser.save();
+			fromUser.save();
 			const toUser = await User.findOne({ username: to }, 'messages');
 			toUser.messages.push({
 				friend: from,
 				conversationId: newMessage._id
 			})
-			await toUser.save();
+			// await toUser.save();
+			toUser.save();
 		}
 		else {
 			const currentConversation = await Message.findOne({ _id: conversation.conversationId }, 'conversation');
-			currentConversation.conversation.push(...extractedConversation);
-			await currentConversation.save();
+			currentConversation.conversation.push({ username: from, message });
+			// await currentConversation.save();
+			currentConversation.save();
 		}
 	} catch (error) {
 		console.log(parseError(error));

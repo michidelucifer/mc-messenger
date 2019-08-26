@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CloudinaryContext, Image, Transformation } from 'cloudinary-react';
-// import io from 'socket.io-client';
+import io from 'socket.io-client';
 
 import { getHistoryConversationDispatcher } from '../dispatchers/messageDispatcher';
 
@@ -25,16 +25,21 @@ class Chat extends Component {
 			message: "",
 			friendName: this.props.match.params.friendName,
 			friendAvatar: this.props.location.state.friendAvatar,
-			// socket: io.connect(window.location.origin + '?username=' + this.props.username, { secure: true }),
+			socket: io.connect(window.location.origin + '?username=' + this.props.username, { secure: true }),
 			conversation: []
 		}
 
 		this.messageChange = this.messageChange.bind(this);
 		this.enterPressed = this.enterPressed.bind(this);
 		this.handleSendMessage = this.handleSendMessage.bind(this);
+		this.renderHistory = this.renderHistory.bind(this);
 
-		/*this.state.socket.on('send message', data => {
-			if (data.from === this.state.friend) {
+
+		this.state.socket.on('send message', data => {
+			// console.log('receive message');
+			// console.log(data.from);
+			// console.log(data.message);
+			if (data.from === this.state.friendName) {
 				let newConversation = this.state.conversation.slice();
 				newConversation.push({
 					username: data.from,
@@ -44,7 +49,7 @@ class Chat extends Component {
 					conversation: newConversation
 				})
 			}
-		})*/
+		})
 	}
 
 	renderViewHistoryButton() {
@@ -53,7 +58,7 @@ class Chat extends Component {
 	}
 
 	renderHistory() {
-		this.props.getHistoryConversation(this.state.friend);
+		this.props.getHistoryConversation(this.state.friendName);
 		this.setState({
 			historyButtonDisplay: false
 		})
@@ -68,11 +73,11 @@ class Chat extends Component {
 	handleSendMessage(e) {
 		e.preventDefault();
 		if(this.state.message.trim() !== "") {
-			/*this.state.socket.emit('send message', {
+			this.state.socket.emit('send message', {
 				from: this.props.username,
-				to: this.props.friendName,
+				to: this.state.friendName,
 				message: this.state.message
-			});*/
+			});
 			let newConversation = this.state.conversation.slice();
 			newConversation.push({ 
 				username: this.props.username,
@@ -96,13 +101,20 @@ class Chat extends Component {
 		))
 	}
 
+	scrollToBottom() {
+		const conversationDiv = document.getElementById('conversation');
+		if (Boolean(conversationDiv)) {
+			conversationDiv.scrollTop = conversationDiv.scrollHeight;
+		}
+	}
+
 	componentDidUpdate(prevProps) {
 		if (this.props.conversation && prevProps.conversation.length !== this.props.conversation.length) {
 			this.setState({
 				conversation: this.props.conversation,
 			})
 		}
-		this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+		this.scrollToBottom();
 	}
 
 	render() {
@@ -119,7 +131,6 @@ class Chat extends Component {
 						<div id='conversation'>
 							{this.renderViewHistoryButton()}
 							{this.renderConversation()}
-							<div ref={(el) => { this.messagesEnd = el; }} />
 						</div>
 						<div id='friend-avatar'>
 							<CloudinaryContext cloudName='michidelucifer' >

@@ -8,7 +8,7 @@ const path = require('path');
 const cloudinary = require('cloudinary');
 const socket = require('socket.io');
 
-const { signUpRouter, sessionRouter, profileRouter, friendRouter } = require('./routes/routes');
+const { signUpRouter, sessionRouter, profileRouter, friendRouter, messageRouter } = require('./routes/routes');
 const chatHandle = require('./chat/chatHandle');
 
 require('dotenv').config();
@@ -64,6 +64,7 @@ require('dotenv').config();
 		apiRouter.use('/session', sessionRouter); 
 		apiRouter.use('/profile', profileRouter);
 		apiRouter.use('/friend', friendRouter);
+		apiRouter.use('/message', messageRouter);
 
 		chatHandle(io);
 

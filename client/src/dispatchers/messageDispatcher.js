@@ -4,7 +4,7 @@ import { receiveConversation } from '../actions/messageAction';
 import { receiveError } from '../actions/errorAction';
 
 export const getHistoryConversationDispatcher = friendName => dispatch => {
-	axios.get('/api/message', { friendName }, { withCredentials: true })
+	axios.get('/api/message?friendName=' + friendName , { withCredentials: true })
 		.then(response => {
 			dispatch(receiveConversation(response.data));
 		})
