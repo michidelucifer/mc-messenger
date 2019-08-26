@@ -9,6 +9,8 @@ import SignUp from './SignUp';
 import SignIn from './SignIn';
 import SignOut from './SignOut';
 import Profile from './Profile';
+import ChatRoom from './ChatRoom';
+import Chat from './Chat';
 // import NotFound from './NotFound';
 
 const mapStateToProps = state => ({
@@ -21,16 +23,17 @@ class App extends Component {
 		if (this.props.isLoggedIn) {
 			return (
 				<ul>
+					<li><Link to='/chatroom'>Chat Room</Link></li>
 					<li><Link to='/profile'>Profile</Link></li>
-					<li><Link to='/signOut'>Sign Out</Link></li>
+					<li><Link to='/signout'>Sign Out</Link></li>
 				</ul>
 			)
 		} else {
 			return (
 				<ul>
 					<li><Link to='/'>Home</Link></li>
-					<li><Link to='/signIn'>Sign In</Link></li>
-					<li><Link to='/signUp'>Sign Up</Link></li>
+					<li><Link to='/signin'>Sign In</Link></li>
+					<li><Link to='/signup'>Sign Up</Link></li>
 				</ul>
 			)
 		}
@@ -45,10 +48,12 @@ class App extends Component {
 					</header>
 					<main>
 						<Route exact path='/' component={Home} />
-						<ProtectedRoute path='/signIn' component={SignIn} />
-						<ProtectedRoute path='/signUp' component={SignUp} />
-						<AuthRoute path='/signOut' component={SignOut} />
+						<ProtectedRoute path='/signin' component={SignIn} />
+						<ProtectedRoute path='/signup' component={SignUp} />
+						<AuthRoute path='/signout' component={SignOut} />
 						<AuthRoute path='/profile' component={Profile} />
+						<AuthRoute path='/chatroom' component={ChatRoom} />
+						<AuthRoute path='/chat/:friendName' component={Chat} />
 					</main>
 					<footer>
 						<p>mcMessenger - 2019</p>

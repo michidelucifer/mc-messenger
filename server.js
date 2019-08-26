@@ -6,8 +6,10 @@ const connectStore = require('connect-mongo');
 const cors = require('cors');
 const path = require('path');
 const cloudinary = require('cloudinary');
+const socket = require('socket.io');
 
-const { signUpRouter, sessionRouter, profileRouter } = require('./routes/routes');
+const { signUpRouter, sessionRouter, profileRouter, friendRouter, messageRouter } = require('./routes/routes');
+const chatHandle = require('./chat/chatHandle');
 
 require('dotenv').config();
 
@@ -17,6 +19,7 @@ require('dotenv').config();
 
 		const app = express();
 		const httpServer = http.createServer(app);
+		const io = socket(httpServer);
 		const MongoStore = connectStore(session);
 
 		cloudinary.config({
@@ -60,6 +63,10 @@ require('dotenv').config();
 		apiRouter.use('/signUp', signUpRouter); 
 		apiRouter.use('/session', sessionRouter); 
 		apiRouter.use('/profile', profileRouter);
+		apiRouter.use('/friend', friendRouter);
+		apiRouter.use('/message', messageRouter);
+
+		chatHandle(io);
 
 		app.get('*', (req, res) => {
 			res.sendFile(path.join(__dirname + '/client/build/index.html'));

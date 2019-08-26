@@ -41,6 +41,7 @@ h1 {
 main {
 	min-height: 100vh;
 	margin-left: 120px;
+	margin-right: 120px;
 }
 
 footer {

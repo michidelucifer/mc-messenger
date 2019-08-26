@@ -1,0 +1,52 @@
+#friend-list {
+	/*margin: auto;*/
+	width: 90%;
+	border-collapse: collapse;
+	border: 1px solid black;
+}
+
+#friend-list * {
+	padding: 1px;
+}
+
+#friend-list > thead tr, th {
+	border: 1px solid black;
+}
+
+#friend-list > tbody tr, td {
+	border: 1px solid black;
+	/*height: 40px;*/
+}
+
+#friend-list tr > th:nth-child(1) {
+	width: 50px;
+	/*border: none;*/
+}
+
+#friend-list tr > th:nth-child(2) {
+	width: 120px;
+}
+
+#friend-list tr > th:nth-child(3) {
+	/*width: 50px;*/
+}
+
+#friend-list tr > th:nth-child(4) {
+	width: 100px;
+}
+
+#friend-list tr > td:nth-child(2) {
+	text-align: center;
+}
+
+#friend-list tr > td:nth-child(4) {
+	text-align: center;
+}
+
+#friend-list a:visited {
+	color: blue;
+}
+
+.mini-avatar {
+	border-radius: 50%;
+}

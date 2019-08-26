@@ -1,5 +1,5 @@
 const USERNAME = 'username';
-const IMAGEURL = 'IMAGEURL';
+const IMAGEURL = 'imageUrl';
 
 export const setPreLoadedState = () => ({
 	sessionReducer: {
