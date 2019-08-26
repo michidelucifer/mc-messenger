@@ -37,7 +37,7 @@ class SignIn extends Component {
 
 	componentDidUpdate() {
 		if (this.props.isLoggedIn) {
-			this.props.history.push('/profile');
+			this.props.history.push('/chatroom');
 		} 
 		if (this.props.error !== "") { // check condition to prevent infinite loop
 			this.setState({
